@@ -1,6 +1,8 @@
 # The First Chrome Extension for Shortmail
 See your Shortmail unread count in Chrome. Enter your Shortmail email and password in the options page, and the extension will check your account every 60 seconds, displaying the unread count as a badge. Uses the new [Shortmail API](http://api.shortmail.com/api/index.html).
 
+![screenshot](http://dl.dropbox.com/u/2460931/shortmail-chrome-extension-screenshot.png)
+
 ### Installation
 Clone this repository, enable Developer Mode in Chrome, and Load unpacked extension. See [http://code.google.com/chrome/extensions/devguide.html]()
 
