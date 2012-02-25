@@ -1,0 +1,37 @@
+<html>
+<head><title>Shortmail Options</title></head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  localStorage["email"] = document.getElementById("email").value;
+  localStorage["password"] = document.getElementById("password").value;
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  document.getElementById("email").value = localStorage["email"];
+  document.getElementById("password").value =localStorage["password"];
+}
+
+</script>
+
+<body onload="restore_options()">
+
+Shortmail email address:
+<input type="text" id="email" />
+<br/>
+Password:
+<input type="password" id="password" />
+<button onclick="save_options()">Save</button>
+<p id="status"></p>
+
+</body>
+</html>

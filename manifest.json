@@ -1,0 +1,15 @@
+{
+  "name": "Shortmail Checker",
+  "version": "1.0",
+  "description": "Checks your Shortmail, displaying a badge for unread messages.",
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Shortmail"
+  },
+  "background_page": "mail_check.html",
+  "permissions": [
+    "https://api.shortmail.com/"
+  ],
+  "homepage_url": "http://shortmail.com/"
+}

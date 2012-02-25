@@ -1,0 +1,62 @@
+<html>
+<script>
+
+// Called when the user clicks on the browser action icon.
+chrome.browserAction.onClicked.addListener(function() {
+  chrome.tabs.create({"url": "http://shortmail.com/"});
+});
+
+function unreadCount() {
+  var email = localStorage["email"];
+  var password = localStorage["password"];
+  if (email && password) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.shortmail.com/home/api/accounts.json', false);
+    xhr.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
+    xhr.send(null);
+    if (xhr.status === 200 || xhr.status === 304) {
+      var accounts = JSON.parse(xhr.responseText);
+      var account = undefined;
+      for (var i=0; i < accounts.length; i++) {
+        if (accounts[i].email_address === email) {
+          account = accounts[i];
+          break;
+        }
+      }
+      if (account) {
+        localStorage["previousCount"] = account.unseen_inbox_count;
+        return parseInt(account.unseen_inbox_count);
+      } else {
+        console.log('did not find '+email+' in '+accounts.length+' accounts');
+        chrome.browserAction.setBadgeText({"text": "?"});
+        return undefined;
+      }
+    } else {
+      chrome.browserAction.setBadgeText({"text": "x"});
+      return undefined;
+    }
+  }
+}
+
+function checkForNewMail() {
+  var count = unreadCount();
+  if (count === 0) {
+    // reset the badge
+    chrome.browserAction.setBadgeText({"text": ""});
+  } else if (count > 0) {
+    chrome.browserAction.setBadgeText({"text": "" + count});
+  }
+}
+
+// On extension load, show the last known count...
+var previousCount = parseInt(localStorage["previousCount"]);
+if (previousCount) {
+  chrome.browserAction.setBadgeText({"text": "" + previousCount});
+}
+// ...and immediately try to update it
+checkForNewMail();
+
+setInterval(checkForNewMail, 60 * 1000);
+
+</script>
+</html>
