@@ -7,7 +7,7 @@ chrome.browserAction.onClicked.addListener(function() {
 });
 
 function unreadCount() {
-  var email = localStorage["email"];
+  var email = localStorage["email"].toLowerCase();
   var password = localStorage["password"];
   if (email && password) {
     var xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ function unreadCount() {
       var accounts = JSON.parse(xhr.responseText);
       var account = undefined;
       for (var i=0; i < accounts.length; i++) {
-        if (accounts[i].email_address === email) {
+        if (accounts[i].email_address.toLowerCase() === email) {
           account = accounts[i];
           break;
         }
