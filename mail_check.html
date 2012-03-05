@@ -11,7 +11,8 @@ function unreadCount() {
   var password = localStorage["password"];
   if (email && password) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://api.shortmail.com/home/api/accounts.json', false);
+    xhr.open('GET', 'https://api.shortmail.com/home/api/accounts', false);
+    xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
     xhr.send(null);
     if (xhr.status === 200 || xhr.status === 304) {
