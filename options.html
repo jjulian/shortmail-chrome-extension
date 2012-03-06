@@ -9,10 +9,10 @@ function save_options() {
 
   // Update status to let user know options were saved.
   var status = document.getElementById("status");
-  status.innerHTML = "Options Saved.";
+  status.innerHTML = "Options Saved";
   setTimeout(function() {
     status.innerHTML = "";
-  }, 750);
+  }, 1250);
 }
 
 // Restores select box state to saved value from localStorage.
@@ -22,16 +22,71 @@ function restore_options() {
 }
 
 </script>
-
+<style>
+  body {
+    padding: 20px 0;
+    background: url(http://assets0.shortmail.com/images/body-bg.jpg);
+    font-size: 24px;
+    font-family: sans-serif;
+    color: #333;
+  }
+  #status {
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    text-align: center;
+    color: #999;
+  }
+  #wrapper {
+    margin: 20px auto;
+    width: 500px;
+    padding: 30px 30px 60px;
+    background: url(http://assets1.shortmail.com/images/wood.png) -9px -9px repeat-y;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0 0 7px rgba(0,0,0,.7);
+  }
+  #top {
+    margin: 0 0 20px 0;
+  }
+  input {
+    display: block;
+    margin-bottom: 10px;
+  }
+  input {
+    width: 480px;
+    padding: 20px;
+    font-size: 24px;
+    color: #333;
+    -webkit-border-radius: 5px;
+  }
+  button {
+    display: block;
+    padding: 5px 15px;
+    border: 1px solid #00709f;
+    -webkit-border-radius: 3px;
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #00709f;
+    font-weight:bold;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2CA1E5), to(#0D89BC));
+  }
+  button:hover {
+    cursor: pointer;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2CA1E5), to(#0D79AC));
+  }
+</style>
 <body onload="restore_options()">
 
-Shortmail email address:
-<input type="text" id="email" />
-<br/>
-Password:
-<input type="password" id="password" />
-<button onclick="save_options()">Save</button>
-<p id="status"></p>
+<div id="status"></div>
+<div id="wrapper">
+  <div id="top">
+    <a href="https://shortmail.com/"><img src="http://assets2.shortmail.com/images/twitter-avatar.png"/></a>
+  </div>
+  <input type="text" id="email" placeholder="Shortmail email address"/>
+  <input type="password" id="password" placeholder="Password"/>
+  <button onclick="save_options()">Save</button>
+</div>
 
 </body>
 </html>
