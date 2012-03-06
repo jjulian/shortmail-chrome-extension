@@ -2,9 +2,14 @@
   "name": "Shortmail Checker",
   "version": "1.0",
   "description": "Checks your Shortmail, displaying a badge for unread messages.",
+  "icons": { 
+    "16":  "sm16.png",
+    "48":  "sm48.png",
+    "128": "sm128.png"
+  },
   "options_page": "options.html",
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "sm48.png",
     "default_title": "Shortmail"
   },
   "background_page": "mail_check.html",
