@@ -3,7 +3,7 @@
 
 // Called when the user clicks on the browser action icon.
 chrome.browserAction.onClicked.addListener(function() {
-  chrome.tabs.create({"url": "https://shortmail.com/"});
+  chrome.tabs.create({"url": "https://shortmail.com/home?aid=" + localStorage["email"]});
 });
 
 function unreadCount() {
