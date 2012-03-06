@@ -1,24 +1,44 @@
 <html>
-<head><title>Shortmail Options</title></head>
-<script type="text/javascript">
+<head><title>Shortmail Options</title>
+<script>
 
-// Saves options to localStorage.
-function save_options() {
-  localStorage["email"] = document.getElementById("email").value;
-  localStorage["password"] = document.getElementById("password").value;
-
-  // Update status to let user know options were saved.
+function updateStatus(text, wait) {
   var status = document.getElementById("status");
-  status.innerHTML = "Options Saved";
-  setTimeout(function() {
-    status.innerHTML = "";
-  }, 1250);
+  status.innerHTML = text;
+  if (wait) {
+    setTimeout(function() {
+      status.innerHTML = "";
+    }, wait);
+  }
 }
 
-// Restores select box state to saved value from localStorage.
-function restore_options() {
+function testConnection() {
+  updateStatus("connecting...", 0);
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.shortmail.com/home/api/accounts');
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage["email"] + ":" + localStorage["password"]));
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200 || xhr.status === 304) {
+        updateStatus("Success! Options Saved", 1500);
+      } else {
+        updateStatus("Email address or password incorrect", 2500);
+      }
+    }
+  }
+  xhr.send(null);
+}
+
+function saveOptions() {
+  localStorage["email"] = document.getElementById("email").value;
+  localStorage["password"] = document.getElementById("password").value;
+  testConnection();
+}
+
+function restoreOptions() {
   document.getElementById("email").value = localStorage["email"];
-  document.getElementById("password").value =localStorage["password"];
+  document.getElementById("password").value = localStorage["password"];
 }
 
 </script>
@@ -76,7 +96,8 @@ function restore_options() {
     background: -webkit-gradient(linear, left top, left bottom, from(#2CA1E5), to(#0D79AC));
   }
 </style>
-<body onload="restore_options()">
+</head>
+<body onload="restoreOptions()">
 
 <div id="status"></div>
 <div id="wrapper">
@@ -85,7 +106,7 @@ function restore_options() {
   </div>
   <input type="text" id="email" placeholder="Shortmail email address"/>
   <input type="password" id="password" placeholder="Password"/>
-  <button onclick="save_options()">Save</button>
+  <button onclick="saveOptions()">Save</button>
 </div>
 
 </body>
